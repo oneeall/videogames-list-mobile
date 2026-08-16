@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:videogames_list_mobile/core/network/dio_client.dart';
 import 'package:videogames_list_mobile/injection.dart';
 
 void main() {
@@ -14,11 +14,11 @@ void main() {
       // call the setup
       setupDependencies();
       // 2. Assert
-      expect(serviceLocator.isRegistered<Dio>(), isTrue);
+      expect(serviceLocator.isRegistered<RawgDioClient>(), isTrue);
 
       // try to actual resolve it. if it fails, the test fails.
-      final dio = serviceLocator<Dio>();
-      expect(dio, isA<Dio>());
+      final dio = serviceLocator<RawgDioClient>();
+      expect(dio, isA<RawgDioClient>());
     });
   });
 }
