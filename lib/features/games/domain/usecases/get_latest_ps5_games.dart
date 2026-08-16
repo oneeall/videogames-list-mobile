@@ -1,3 +1,4 @@
+import 'package:videogames_list_mobile/core/utils/result.dart';
 import 'package:videogames_list_mobile/features/games/domain/repositories/games_repository.dart';
 
 import '../entities/game.dart';
@@ -10,7 +11,7 @@ class GetLatestPs5Games {
 
   /// fetches a paginated list of the latest PS5 games
   /// [page] - page number (start at 1)
-  Future<List<Game>> call({required int page}) async {
+  Future<Result<List<Game>>> call({required int page}) async {
     return await repository.getLatestPs5Games(page: page);
   }
 }
