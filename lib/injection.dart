@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:videogames_list_mobile/core/network/dio_client.dart';
 
