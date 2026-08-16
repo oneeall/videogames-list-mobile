@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:videogames_list_mobile/core/constants/api_constants.dart';
 import 'package:videogames_list_mobile/core/network/dio_client.dart';
 import 'package:videogames_list_mobile/features/games/data/models/game_model.dart';
