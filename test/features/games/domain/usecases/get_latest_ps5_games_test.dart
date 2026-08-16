@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:videogames_list_mobile/core/utils/result.dart';
 import 'package:videogames_list_mobile/features/games/domain/entities/game.dart';
 import 'package:videogames_list_mobile/features/games/domain/repositories/games_repository.dart';
 import 'package:videogames_list_mobile/features/games/domain/usecases/get_latest_ps5_games.dart';
@@ -23,19 +24,20 @@ void main() {
       Game(id: 1, name: 'Game 1'),
       Game(id: 2, name: 'Game 2'),
     ];
+    final successResultTGame = Success(tGames);
 
     test(
       'should get a list of games from the repo when called',
         () async {
           /// arrange
-          when(() => mockGamesRepository.getLatestPs5Games(page: any(named: 'page'))).thenAnswer((_) async => tGames);
+          when(() => mockGamesRepository.getLatestPs5Games(page: any(named: 'page'))).thenAnswer((_) async => successResultTGame);
 
           /// act
           final result = await getLatestPs5GamesUseCase(page: 1);
 
           /// assert
           /// verify the use case returned the data
-          expect(result, tGames);
+          expect(result, successResultTGame);
 
           /// verify the repository was called
           verify(() => mockGamesRepository.getLatestPs5Games(page: 1)).called(1);

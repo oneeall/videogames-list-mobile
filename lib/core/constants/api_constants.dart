@@ -1,6 +1,7 @@
 class RawgApiConstants {
   static const String baseUrl = 'https://api.rawg.io/api';
   static const int ps5PlatformId = 187;
+  static const int pageSize = 20;
 
   /// Passed via --dart-define=RAWG_API_KEY=XXX
   /// Prevent no hard-code api key
