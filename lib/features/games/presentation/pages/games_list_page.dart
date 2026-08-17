@@ -149,7 +149,7 @@ class _GamesListPageState extends State<GamesListPage> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) =>
                           GameCard(game: games[index], onTap: () {
-                            context.go('/game/${games[index].id}');
+                            context.push('/game/${games[index].id}');
                           }),
                       childCount: games.length,
                     ),
