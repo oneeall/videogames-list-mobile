@@ -9,7 +9,6 @@ import 'package:videogames_list_mobile/features/games/presentation/bloc/game_det
 import 'package:videogames_list_mobile/features/games/presentation/bloc/game_detail/game_detail_event.dart';
 import 'package:videogames_list_mobile/features/games/presentation/bloc/game_detail/game_detail_state.dart';
 
-
 class MockGetGameDetails extends Mock implements GetGameDetails {}
 
 void main() {
@@ -31,7 +30,8 @@ void main() {
     blocTest<GameDetailBloc, GameDetailState>(
       'emits [Initial, Loading, Loaded] when FetchGameDetail succeeds',
       build: () {
-        when(() => mockUseCase(tId)).thenAnswer((_) async => const Success(tGame));
+        when(() => mockUseCase(tId))
+            .thenAnswer((_) async => const Success(tGame));
         return GameDetailBloc(getGameDetails: mockUseCase);
       },
       act: (bloc) => bloc.add(const FetchGameDetail(tId)),
@@ -48,15 +48,16 @@ void main() {
     blocTest<GameDetailBloc, GameDetailState>(
       'emits [Initial, Loading, Error] when FetchGameDetail fails',
       build: () {
-        when(() => mockUseCase(tId))
-            .thenAnswer((_) async => const Error(ServerFailure('Game not found')));
+        when(
+          () => mockUseCase(tId),
+        ).thenAnswer((_) async => const Error(ServerFailure('Game not found')));
         return GameDetailBloc(getGameDetails: mockUseCase);
       },
       act: (bloc) => bloc.add(const FetchGameDetail(tId)),
       expect: () => [
         const GameDetailInitial(),
         const GameDetailLoading(),
-        const GameDetailError('Game not found'),
+        const GameDetailError('Game not found', tId),
       ],
       verify: (_) {
         verify(() => mockUseCase(tId)).called(1);
