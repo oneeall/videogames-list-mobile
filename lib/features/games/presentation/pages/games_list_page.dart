@@ -186,7 +186,7 @@ class _GamesListPageState extends State<GamesListPage> {
           }
 
           // fallback for prevent error
-          return const Center(child: Text('Something went wrong'));
+          return const SizedBox.shrink();
         },
       ),
     );
