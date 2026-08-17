@@ -53,6 +53,9 @@ To run integration tests while bypassing the real API (useful when the API is do
 flutter test integration_test/app_test.dart --dart-define=USE_DUMMIES=true
 ```
 
+You can view the execution of the integration test here:
+[Screen Record Integration Test](docs/integration-test/screenrecords/screen_record_integration_test.webm)
+
 ## 📦 Data Mapping
 This project uses `dart_mappable`. If you modify any models in `lib/features/games/data/models/`, you must regenerate the mapping code:
 ```bash
