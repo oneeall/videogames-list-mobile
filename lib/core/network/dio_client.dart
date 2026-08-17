@@ -11,8 +11,8 @@ class RawgDioClient {
     : dio = Dio(
         BaseOptions(
           baseUrl: RawgApiConstants.baseUrl,
-          connectTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 15),
+          connectTimeout: const Duration(seconds: 3),
+          receiveTimeout: const Duration(seconds: 5),
         ),
       ) {
     _initInterceptors();
