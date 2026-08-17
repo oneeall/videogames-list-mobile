@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:videogames_list_mobile/features/games/presentation/pages/games_list_page.dart';
 
 class AppRouter {
   GoRouter get router => _goRouter;
