@@ -21,6 +21,10 @@ test:
 test-int:
 	flutter test integration_test/app_test.dart --dart-define=USE_DUMMIES=true
 
+# Build Android APK in release mode
+build-release:
+	flutter build apk --release
+
 # Clean the project
 clean:
 	flutter clean
