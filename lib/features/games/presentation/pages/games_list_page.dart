@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:videogames_list_mobile/features/games/presentation/bloc/games_list/games_list_event.dart';
 import 'package:videogames_list_mobile/features/games/presentation/bloc/games_list/games_list_state.dart';
 import 'package:videogames_list_mobile/features/games/presentation/widgets/game_card.dart';
@@ -125,7 +126,9 @@ class _GamesListPageState extends State<GamesListPage> {
                         ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) =>
-                          GameCard(game: games[index], onTap: () {}),
+                          GameCard(game: games[index], onTap: () {
+                            context.go('/game/${games[index].id}');
+                          }),
                       childCount: games.length,
                     ),
                   ),

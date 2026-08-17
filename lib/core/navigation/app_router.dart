@@ -1,7 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:videogames_list_mobile/features/games/presentation/pages/games_list_page.dart';
+
+import '../../features/games/presentation/bloc/game_detail/game_detail_bloc.dart';
+import '../../features/games/presentation/bloc/game_detail/game_detail_event.dart';
+import '../../features/games/presentation/pages/game_detail_page.dart';
+import '../../injection.dart';
 
 class AppRouter {
   GoRouter get router => _goRouter;
@@ -15,6 +21,18 @@ class AppRouter {
         path: '/',
         name: 'home',
         builder: (context, state) => GamesListPage(),
+      ),
+      GoRoute(
+        path: '/game/:id',
+        name: 'gameDetail',
+        builder: (context, state) {
+          final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+
+          return BlocProvider(
+            create: (_) => serviceLocator<GameDetailBloc>()..add(FetchGameDetail(id)),
+            child: const GameDetailPage(),
+          );
+        },
       ),
     ],
     // Centralized error handling for unknown routes
