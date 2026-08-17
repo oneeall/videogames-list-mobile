@@ -85,9 +85,9 @@ class GameDetailPage extends StatelessWidget {
                       height: 250,
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      placeholder: (_, __) =>
+                      placeholder: (_, _) =>
                           Container(color: Colors.grey[900]),
-                      errorWidget: (_, __, ___) =>
+                      errorWidget: (_, _, _) =>
                           Container(color: Colors.grey[900]),
                     ),
 
@@ -151,9 +151,9 @@ class GameDetailPage extends StatelessWidget {
                                       imageUrl: game.screenshots[index],
                                       fit: BoxFit.cover,
                                       width: 300,
-                                      placeholder: (_, __) =>
+                                      placeholder: (_, _) =>
                                           Container(color: Colors.grey[900]),
-                                      errorWidget: (_, __, ___) =>
+                                      errorWidget: (_, _, _) =>
                                           Container(color: Colors.grey[900]),
                                     ),
                                   ),
