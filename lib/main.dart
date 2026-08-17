@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/cubit/dummies_cubit.dart';
 import 'core/navigation/app_router.dart';
 import 'features/games/presentation/bloc/games_list/games_list_bloc.dart';
 import 'injection.dart';
@@ -15,19 +16,18 @@ class PS5GamesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'PS5 Games',
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
-      darkTheme: ThemeData.dark(useMaterial3: true),
-      // Retrieve the router from the service locator
-      routerConfig: serviceLocator<AppRouter>().router,
-      // Provide the GamesListBloc globally for the home page
-      builder: (context, child) {
-        return BlocProvider(
-          create: (_) => serviceLocator<GamesListBloc>(),
-          child: child,
-        );
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: serviceLocator<DummiesCubit>()),
+        BlocProvider(create: (_) => serviceLocator<GamesListBloc>()),
+      ],
+      child: MaterialApp.router(
+        title: 'PS5 Games',
+        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+        darkTheme: ThemeData.dark(useMaterial3: true),
+        // Retrieve the router from the service locator
+        routerConfig: serviceLocator<AppRouter>().router,
+      ),
     );
   }
 }

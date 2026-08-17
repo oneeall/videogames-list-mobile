@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:videogames_list_mobile/core/cubit/dummies_cubit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:videogames_list_mobile/features/games/presentation/bloc/games_list/games_list_event.dart';
 import 'package:videogames_list_mobile/features/games/presentation/bloc/games_list/games_list_state.dart';
 import 'package:videogames_list_mobile/features/games/presentation/widgets/game_card.dart';
@@ -62,7 +64,28 @@ class _GamesListPageState extends State<GamesListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Latest PS5 Games')),
+      appBar: AppBar(
+        title: const Text('Latest PS5 Games'),
+        actions: [
+          BlocBuilder<DummiesCubit, bool>(
+            builder: (context, isDummiesMode) {
+              return Row(
+                children: [
+                  const Text('Dummies'),
+                  Switch(
+                    value: isDummiesMode,
+                    onChanged: (value) {
+                      context.read<DummiesCubit>().toggle();
+                      // Refresh the list when toggling
+                      context.read<GamesListBloc>().add(FetchGames());
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
       body: BlocConsumer<GamesListBloc, GamesListState>(
         listener: (context, state) {
           if (state is GamesListLoaded && !state.hasReachedMax) {
@@ -125,7 +148,9 @@ class _GamesListPageState extends State<GamesListPage> {
                         ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) =>
-                          GameCard(game: games[index], onTap: () {}),
+                          GameCard(game: games[index], onTap: () {
+                            context.push('/game/${games[index].id}');
+                          }),
                       childCount: games.length,
                     ),
                   ),
