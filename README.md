@@ -39,6 +39,7 @@ For convenience, a `Makefile` is provided for common tasks.
 | `make run` | Run the app in debug mode |
 | `make test` | Run all unit and widget tests |
 | `make test-int` | Run integration tests using **Dummies Mode** |
+| `make build-release` | Build the Android APK in release mode |
 
 ## 🧪 Testing
 
@@ -52,6 +53,8 @@ To run integration tests while bypassing the real API (useful when the API is do
 ```bash
 flutter test integration_test/app_test.dart --dart-define=USE_DUMMIES=true
 ```
+
+> **Note:** If the RAWG API is currently down or unreachable, you can still explore the app by enabling **Dummies Mode**. This uses local mock data instead of real network requests. You can toggle this in the UI or by running the app with the `--dart-define=USE_DUMMIES=true` flag.
 
 You can view the execution of the integration test here:
 [Screen Record Integration Test](docs/integration_test/screen_records/screen_record_integration_test.webm)
