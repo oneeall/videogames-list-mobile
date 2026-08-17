@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../domain/entities/game.dart';
 
 class GameCard extends StatelessWidget {
@@ -81,7 +82,7 @@ class GameCard extends StatelessWidget {
                   ),
                   Text(
                     game.released != null
-                        ? '${game.released!.day}/${game.released!.month}/${game.released!.year}'
+                        ? DateFormat.yMMMd().format(game.released!)
                         : 'TBA',
                     style: const TextStyle(color: Colors.white70, fontSize: 12),
                   ),

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:videogames_list_mobile/features/games/presentation/pages/games_list_page.dart';
 
 class AppRouter {
   GoRouter get router => _goRouter;
@@ -13,10 +14,7 @@ class AppRouter {
       GoRoute(
         path: '/',
         name: 'home',
-        builder: (context, state) => Scaffold(
-          appBar: AppBar(title: const Text('Home')),
-          body: const Center(child: Text('Home Page')),
-        ),
+        builder: (context, state) => GamesListPage(),
       ),
     ],
     // Centralized error handling for unknown routes
