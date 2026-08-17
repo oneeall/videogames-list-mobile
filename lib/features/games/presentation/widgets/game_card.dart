@@ -31,8 +31,8 @@ class GameCard extends StatelessWidget {
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,
-              placeholder: (_, __) => const ColoredBox(color: Colors.black12),
-              errorWidget: (_, __, ___) => const ColoredBox(color: Colors.black12),
+              placeholder: (_, _) => const ColoredBox(color: Colors.black12),
+              errorWidget: (_, _, _) => const ColoredBox(color: Colors.black12),
             ),
             Positioned.fill(
               child: Container(

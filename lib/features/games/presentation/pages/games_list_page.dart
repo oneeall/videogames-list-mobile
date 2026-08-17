@@ -11,7 +11,7 @@ import 'package:videogames_list_mobile/features/games/presentation/widgets/game_
 import '../bloc/games_list/games_list_bloc.dart';
 
 class GamesListPage extends StatefulWidget {
-  const GamesListPage({Key? key}) : super(key: key);
+  const GamesListPage({super.key});
 
   @override
   State<GamesListPage> createState() => _GamesListPageState();
