@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:videogames_list_mobile/core/network/dio_client.dart';
 import 'package:videogames_list_mobile/features/games/presentation/widgets/game_card.dart';
 import 'package:videogames_list_mobile/injection.dart';
 import 'package:videogames_list_mobile/main.dart' as app;
