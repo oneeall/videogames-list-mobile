@@ -433,12 +433,20 @@ class GameDetailErrorMapper extends ClassMapperBase<GameDetailError> {
     'message',
     _$message,
   );
+  static int _$gameId(GameDetailError v) => v.gameId;
+  static const Field<GameDetailError, int> _f$gameId = Field(
+    'gameId',
+    _$gameId,
+  );
 
   @override
-  final MappableFields<GameDetailError> fields = const {#message: _f$message};
+  final MappableFields<GameDetailError> fields = const {
+    #message: _f$message,
+    #gameId: _f$gameId,
+  };
 
   static GameDetailError _instantiate(DecodingData data) {
-    return GameDetailError(data.dec(_f$message));
+    return GameDetailError(data.dec(_f$message), data.dec(_f$gameId));
   }
 
   @override
@@ -504,7 +512,7 @@ extension GameDetailErrorValueCopy<$R, $Out>
 abstract class GameDetailErrorCopyWith<$R, $In extends GameDetailError, $Out>
     implements GameDetailStateCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? message});
+  $R call({String? message, int? gameId});
   GameDetailErrorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -519,11 +527,17 @@ class _GameDetailErrorCopyWithImpl<$R, $Out>
   late final ClassMapperBase<GameDetailError> $mapper =
       GameDetailErrorMapper.ensureInitialized();
   @override
-  $R call({String? message}) =>
-      $apply(FieldCopyWithData({if (message != null) #message: message}));
+  $R call({String? message, int? gameId}) => $apply(
+    FieldCopyWithData({
+      if (message != null) #message: message,
+      if (gameId != null) #gameId: gameId,
+    }),
+  );
   @override
-  GameDetailError $make(CopyWithData data) =>
-      GameDetailError(data.get(#message, or: $value.message));
+  GameDetailError $make(CopyWithData data) => GameDetailError(
+    data.get(#message, or: $value.message),
+    data.get(#gameId, or: $value.gameId),
+  );
 
   @override
   GameDetailErrorCopyWith<$R2, GameDetailError, $Out2> $chain<$R2, $Out2>(

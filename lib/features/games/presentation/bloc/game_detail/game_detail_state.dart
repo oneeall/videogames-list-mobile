@@ -29,6 +29,7 @@ class GameDetailLoaded extends GameDetailState with GameDetailLoadedMappable {
 @MappableClass()
 class GameDetailError extends GameDetailState with GameDetailErrorMappable {
   final String message;
+  final int gameId;
 
-  const GameDetailError(this.message);
+  const GameDetailError(this.message, this.gameId);
 }

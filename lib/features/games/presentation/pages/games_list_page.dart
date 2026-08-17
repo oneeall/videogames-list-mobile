@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:videogames_list_mobile/core/cubit/dummies_cubit.dart';
 import 'package:go_router/go_router.dart';
+import 'package:videogames_list_mobile/core/cubit/dummies_cubit.dart';
+import 'package:videogames_list_mobile/features/games/presentation/widgets/dummies_toggle.dart';
+import 'package:videogames_list_mobile/features/games/presentation/widgets/error_view.dart';
 import 'package:videogames_list_mobile/features/games/presentation/bloc/games_list/games_list_event.dart';
 import 'package:videogames_list_mobile/features/games/presentation/bloc/games_list/games_list_state.dart';
 import 'package:videogames_list_mobile/features/games/presentation/widgets/game_card.dart';
@@ -69,18 +71,14 @@ class _GamesListPageState extends State<GamesListPage> {
         actions: [
           BlocBuilder<DummiesCubit, bool>(
             builder: (context, isDummiesMode) {
-              return Row(
-                children: [
-                  const Text('Dummies'),
-                  Switch(
-                    value: isDummiesMode,
-                    onChanged: (value) {
-                      context.read<DummiesCubit>().toggle();
-                      // Refresh the list when toggling
-                      context.read<GamesListBloc>().add(FetchGames());
-                    },
-                  ),
-                ],
+              if (!isDummiesMode) return const SizedBox.shrink();
+              return const Padding(
+                padding: EdgeInsets.only(right: 16.0),
+                child: Chip(
+                  label: Text('DUMMY', style: TextStyle(fontSize: 10)),
+                  backgroundColor: Colors.orange,
+                  visualDensity: VisualDensity.compact,
+                ),
               );
             },
           ),
@@ -104,20 +102,22 @@ class _GamesListPageState extends State<GamesListPage> {
           }
 
           if (state is GamesListError && state.previousGames == null) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(state.message),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<GamesListBloc>().add(FetchGames());
-                    },
-                    child: const Text('Retry'),
-                  ),
-                ],
-              ),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ErrorView(
+                  message: state.message,
+                  onRetry: () =>
+                      context.read<GamesListBloc>().add(FetchGames()),
+                ),
+                const SizedBox(height: 24),
+                const Divider(),
+                const SizedBox(height: 8),
+                DummiesToggle(
+                  onToggle: () =>
+                      context.read<GamesListBloc>().add(FetchGames()),
+                ),
+              ],
             );
           }
 

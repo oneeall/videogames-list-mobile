@@ -21,7 +21,7 @@ class GameDetailBloc extends Bloc<GameDetailEvent, GameDetailState> {
       case Success(:final data):
         emit(GameDetailLoaded(data));
       case Error(:final failure):
-        emit(GameDetailError(failure.message));
+        emit(GameDetailError(failure.message, event.id));
     }
   }
 }

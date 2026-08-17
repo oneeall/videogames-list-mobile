@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 
+import 'package:videogames_list_mobile/features/games/presentation/widgets/dummies_toggle.dart';
+import 'package:videogames_list_mobile/features/games/presentation/widgets/error_view.dart';
+import 'package:videogames_list_mobile/features/games/presentation/bloc/game_detail/game_detail_event.dart';
+
 import '../bloc/game_detail/game_detail_bloc.dart';
 import '../bloc/game_detail/game_detail_state.dart';
 
@@ -25,6 +29,18 @@ class GameDetailPage extends StatelessWidget {
             return const Text('Loading...');
           },
         ),
+        actions: [
+          DummiesToggle(
+            onToggle: () {
+              final state = context.read<GameDetailBloc>().state;
+              if (state is GameDetailLoaded) {
+                context.read<GameDetailBloc>().add(
+                  FetchGameDetail(state.game.id),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<GameDetailBloc, GameDetailState>(
         builder: (context, state) {
@@ -32,7 +48,29 @@ class GameDetailPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is GameDetailError) {
-            return Center(child: Text('Failed to load: ${state.message}'));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ErrorView(
+                  message: 'Failed to load: ${state.message}',
+                  onRetry: () {
+                    context.read<GameDetailBloc>().add(
+                      FetchGameDetail(state.gameId),
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+                const Divider(),
+                const SizedBox(height: 8),
+                DummiesToggle(
+                  onToggle: () {
+                    context.read<GameDetailBloc>().add(
+                      FetchGameDetail(state.gameId),
+                    );
+                  },
+                ),
+              ],
+            );
           }
           if (state is GameDetailLoaded) {
             final game = state.game;
