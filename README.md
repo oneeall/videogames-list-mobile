@@ -17,7 +17,7 @@ The project follows **Clean Architecture** principles, separating concerns into 
 *   **Serialization**: `dart_mappable` (Annotation-based JSON serialization)
 *   **Dependency Injection**: `get_it`
 *   **Navigation**: `go_router`
-*   **Testing**: `integration_test`, `mockito`, `http_mock_adapter`
+*   **Testing**: `integration_test`, `mocktail`, `http_mock_adapter`
 
 ## 🚀 Getting Started
 
