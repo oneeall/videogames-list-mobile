@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:integration_test/integration_test.dart';
@@ -9,20 +8,11 @@ import 'package:videogames_list_mobile/main.dart' as app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  late RawgDioClient dioClient;
-  late DioAdapter dioAdapter;
 
   setUp(() {
     serviceLocator.reset();
     // 1. Initialize our Dependency Injection container
     setupDependencies();
-
-    // 2. Grab the singleton DioClient instance we just registered
-    // (Changed from getIt to serviceLocator)
-    dioClient = serviceLocator<RawgDioClient>();
-
-    // 3. Attach the DioAdapter to intercept HTTP requests
-    dioAdapter = DioAdapter(dio: dioClient.dio);
   });
 
   testWidgets(
