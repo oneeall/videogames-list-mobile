@@ -12,6 +12,9 @@ class GamesListBloc extends Bloc<GamesListEvent, GamesListState> {
   int _currentPage = 1;
   bool _hasReachedMax = false;
 
+  // hint: Prevent multiple fetch requests
+  bool _isFetchMore = false;
+
   GamesListBloc({required this.getLatestPs5Games})
     : super(const GamesListInitial()) {
     on<FetchGames>(_onFetchGames);
@@ -20,7 +23,6 @@ class GamesListBloc extends Bloc<GamesListEvent, GamesListState> {
 
   void _onFetchGames(FetchGames event, Emitter<GamesListState> emit) async {
     emit(const GamesListInitial());
-
 
     _currentPage = 1;
     _hasReachedMax = false;
@@ -47,6 +49,9 @@ class GamesListBloc extends Bloc<GamesListEvent, GamesListState> {
     FetchMoreGames event,
     Emitter<GamesListState> emit,
   ) async {
+    if (_isFetchMore) return;
+    _isFetchMore = true;
+
     final currentState = state;
 
     int pageToFetch;
@@ -64,25 +69,29 @@ class GamesListBloc extends Bloc<GamesListEvent, GamesListState> {
       return;
     }
 
-    final result = await getLatestPs5Games(page: pageToFetch);
+    try {
+      final result = await getLatestPs5Games(page: pageToFetch);
 
-    switch (result) {
-      case Success(data: final games):
-        emit(
-          GamesListLoaded(
-            games: [...currentGames, ...games],
-            hasReachedMax: games.isEmpty,
-            currentPage: pageToFetch,
-          ),
-        );
-      case Error(failure: final failure):
-        emit(
-          GamesListError(
-            message: failure.message,
-            previousGames: currentGames,
-            currentPage: pageToFetch - 1,
-          ),
-        );
+      switch (result) {
+        case Success(data: final games):
+          emit(
+            GamesListLoaded(
+              games: [...currentGames, ...games],
+              hasReachedMax: games.isEmpty,
+              currentPage: pageToFetch,
+            ),
+          );
+        case Error(failure: final failure):
+          emit(
+            GamesListError(
+              message: failure.message,
+              previousGames: currentGames,
+              currentPage: pageToFetch - 1,
+            ),
+          );
+      }
+    } finally {
+      _isFetchMore = false;
     }
   }
 }
